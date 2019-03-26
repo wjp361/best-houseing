@@ -1,0 +1,70 @@
+#服务配置
+server:
+    port: 10060
+    servlet:
+        # 项目contextPath
+        context-path: /mc-custom-manage
+    tomcat:
+        # tomcat的URI编码
+        uri-encoding: UTF-8
+        # tomcat最大线程数，默认为200
+        max-threads: 800
+        # Tomcat启动初始化的线程数，默认值25
+        min-spare-threads: 30
+
+# 数据源配置
+spring:
+    redis:
+        host: redis_server
+        password: mtmy
+        port: 63790
+        database: 0
+        timeout: 1000
+        maxTotal: 50
+        jedis:
+             pool:
+                  max-idle: 300
+                  max-active: 600
+                  max-wait: 1000
+    datasource:
+        c3p0:
+            # 主库数据源
+            master:
+                driverClass: com.mysql.jdbc.Driver
+                jdbcUrl: jdbc:mysql://master_db/mcdb?useUnicode=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+                user: mtmydb
+                password: '@mtmydb'
+                initialPoolSize: 5
+                minPoolSize: 5
+                maxPoolSize: 50
+                acquireIncrement: 5
+                acquireRetryAttempts: 30
+                acquireRetryDelay: 1000
+                maxIdleTime: 120
+                maxConnectionAge: 0
+                maxStatements: 100
+                maxStatementsPerConnection: 5
+                preferredTestQuery: SELECT SYSDATE() FROM DUAL
+                idleConnectionTestPeriod: 120
+                numHelperThreads: 3
+            # 从库数据源
+            slave:
+                # 从数据源开关/默认关闭
+                enabled: false
+                driverClass: com.mysql.jdbc.Driver
+                jdbcUrl: jdbc:mysql://10.10.8.22:3307/mcdb?useUnicode=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+                user: mtmydb
+                password: '@mtmydb'
+                initialPoolSize: 5
+                minPoolSize: 5
+                maxPoolSize: 50
+                acquireIncrement: 5
+                acquireRetryAttempts: 30
+                acquireRetryDelay: 1000
+                maxIdleTime: 120
+                maxConnectionAge: 0
+                maxStatements: 100
+                maxStatementsPerConnection: 5
+                preferredTestQuery: SELECT SYSDATE() FROM DUAL
+                idleConnectionTestPeriod: 120
+                numHelperThreads: 3
